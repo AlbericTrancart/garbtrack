@@ -7,43 +7,10 @@ import { Header } from 'components/Header';
 import { PageContainer } from 'components/Layout';
 import { Footer } from 'components/Footer';
 import '@reach/checkbox/styles.css';
+import { IntlProvider } from 'react-intl';
+import { isValidLocale, languages } from 'services/intl';
 import en from 'locale/en.json';
 import fr from 'locale/fr.json';
-import keys from 'lodash/keys';
-import { IntlProvider } from 'react-intl';
-
-type Message = string | NestedDictionary;
-interface NestedDictionary {
-  [x: string]: Message;
-}
-interface FlattenedDictionary {
-  [x: string]: string;
-}
-
-export const flattenMessages = (
-  nestedMessages: NestedDictionary,
-  prefix = '',
-): FlattenedDictionary =>
-  keys(nestedMessages).reduce((messages: FlattenedDictionary, key) => {
-    const value = nestedMessages[key];
-    const prefixedKey = prefix ? `${prefix}.${key}` : key;
-
-    if (typeof value === 'string') {
-      messages[prefixedKey] = value;
-    } else {
-      Object.assign(messages, flattenMessages(value, prefixedKey));
-    }
-
-    return messages;
-  }, {});
-
-const languages = {
-  en: flattenMessages(en),
-  fr: flattenMessages(fr),
-};
-
-const isValidLocale = (locale: unknown): locale is keyof typeof languages =>
-  typeof locale === 'string' && locale in languages;
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   // from https://github.com/vercel/next.js/issues/3249
@@ -56,7 +23,8 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   });
 
   const config = getPageConfig(router.route);
-  const title = config ? `Garbtrack | ${config.title}` : 'Garbtrack';
+  const localeToUse = isValidLocale(locale) ? locale : 'en';
+  const title = config ? `Garbtrack | ${config.title[localeToUse]}` : 'Garbtrack';
 
   return (
     <IntlProvider messages={messages} locale={locale ?? 'en'} defaultLocale={defaultLocale}>
@@ -69,6 +37,10 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+
+        <link rel="alternate" hrefLang="fr-fr" href={`https://garbtrack.earth${router.pathname}`} />
+        <link rel="alternate" hrefLang="en-us" href={`https://garbtrack.earth${router.pathname}`} />
+
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
         <meta property="og:url" content={`https://garbtrack.earth${router.pathname}`} />

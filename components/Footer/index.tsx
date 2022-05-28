@@ -7,6 +7,7 @@ import { getSpacing, typography } from 'stylesheet';
 import { FormattedMessage } from 'react-intl';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/router';
+import { PAGES } from 'services/pages';
 
 const Container = styled.footer`
   max-width: ${PAGE_WIDTH};
@@ -32,16 +33,8 @@ export const Footer: React.FC = () => {
     <Container>
       <Divider />
       <p>
-        <Link
-          as="a"
-          target="_blank"
-          rel="noreferrer noopener"
-          href="https://twitter.com/alberictrancart"
-        >
-          <FormattedMessage id="footer.twitter" />
-        </Link>{' '}
-        <Link as="a" target="_blank" rel="noreferrer noopener" href="mailto:garbtrack@gmail.com">
-          <FormattedMessage id="footer.email" />
+        <Link href={PAGES.About.url()}>
+          <FormattedMessage id="footer.about" />
         </Link>
         <br />
         <StyledLink

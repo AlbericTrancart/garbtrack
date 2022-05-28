@@ -1,5 +1,3 @@
-import React, { ReactNode } from 'react';
-import copy from 'copy-text-to-clipboard';
 import styled from 'styled-components';
 import { getSpacing, mobileBreakpoint, typography } from 'stylesheet';
 
@@ -35,33 +33,9 @@ export const Title = styled.h1`
   margin: 0;
 `;
 
-export const BaseSubtitle = styled.h2`
+export const Subtitle = styled.h2`
   position: relative;
   ${typography.subtitle}
   margin: 0;
   margin-top: ${getSpacing(2)};
-
-  :hover ${HoverAnchor} {
-    visibility: visible;
-  }
 `;
-
-interface Props {
-  id: string;
-  children: ReactNode;
-}
-
-const copyLink = (id: string) => {
-  if (window !== undefined) {
-    copy(window.location.origin + window.location.pathname + '#' + id);
-  }
-};
-
-export const Subtitle: React.FC<Props> = ({ id, children }) => (
-  <BaseSubtitle id={id}>
-    <HoverAnchor href={`#${id}`} aria-hidden="true" onClick={() => copyLink(id)}>
-      🔗
-    </HoverAnchor>
-    {children}
-  </BaseSubtitle>
-);

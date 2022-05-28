@@ -1,12 +1,24 @@
 {
   "footer": {
-    "twitter": "Me contacter sur Twitter",
-    "email": "ou par mail garbtrack@gmail.com"
+    "about": "À propos"
   },
   "header": {
     "slogan": "Traquer les déchets simplement"
   },
   "pages": {
+    "about": {
+      "contactContent": "Je suis toujours preneur d'idées d'amélioration ou de rapports de problèmes/bugs. Voici quelques moyens pour me contacter :",
+      "contactLinks": {
+        "email": "Par mail garbtrack@gmail.com",
+        "twitter": "Sur Twitter",
+        "website": "Mon site personnel"
+      },
+      "contactTitle": "Des retours/suggestions ?",
+      "dataPolicyContent": "Il n'y a aucun serveur qui centralise ou recolte les données que vous rentrez. D'ailleurs vous n'avez même pas besoin de créer de compte. Tout est sauvegardé sur votre ordinateur/téléphone !",
+      "dataPolicyTitle": "Gestion des données",
+      "whyContent": "Cela est né d'une volonté personnelle de réduire ma production de déchets, et je me suis dit que l'expérience pourrait intéresser d'autres personnes.",
+      "whyTitle": "Pourquoi Garbtrack ?"
+    },
     "home": {
       "introduction": "Tu cherches à réduire ta quantité de déchets ?\n\nOu juste envie de mesurer ce qui sort de ta poubelle par curiosité ?",
       "start": "Commencer à tracker\nmes déchets !"
