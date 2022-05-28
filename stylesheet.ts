@@ -54,7 +54,7 @@ export const typography: { [key: string]: FlattenSimpleInterpolation } = {
 
 export const zIndex = {};
 
-export const borderRadius = '5px';
+export const borderRadius = '10px';
 
 export const screenReaderOnlyStyle = css`
   position: absolute !important;

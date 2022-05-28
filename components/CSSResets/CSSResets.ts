@@ -62,13 +62,11 @@ export const CSSResets = createGlobalStyle`
         margin: 0;
     }
 
+    button, input {
+        border: none;
+    }
     button {
         background: none;
-    }
-
-    a:focus, button:focus {
-        outline: ${colorPalette.darkPurple} solid 2px;
-        outline-offset: 2px;
     }
 
     * {

@@ -20,6 +20,11 @@ export const StyledLink = styled.a`
   &:active {
     color: ${colorPalette.darkPurple};
   }
+
+  &:focus {
+    outline: ${colorPalette.darkPurple} solid 2px;
+    outline-offset: 2px;
+  }
 `;
 
 export const Link: React.FC<CustomLinkProps> = ({ href, children, ...rest }) => (

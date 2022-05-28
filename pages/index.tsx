@@ -1,9 +1,11 @@
 import { Button } from 'components/Button/Button';
+import { Input } from 'components/Input/Input';
 import { NextPage } from 'next';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { getStorage } from 'services/storage';
 import styled from 'styled-components';
+import { getSpacing } from 'stylesheet';
 
 enum Steps {
   START,
@@ -12,9 +14,16 @@ enum Steps {
 }
 
 const Container = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  gap: ${getSpacing(4)};
   font-size: 1.25rem;
 `;
+
+const StyledInput = styled(Input)``;
 
 const Home: NextPage = () => {
   const storage = getStorage();
@@ -30,7 +39,7 @@ const Home: NextPage = () => {
             <FormattedMessage id="pages.home.start" />
           </p>
 
-          <Button className="mtop" onClick={() => setStep(Steps.BALANCE)}>
+          <Button onClick={() => setStep(Steps.BALANCE)}>
             <FormattedMessage id="pages.home.startOk" />
           </Button>
         </>
@@ -39,8 +48,8 @@ const Home: NextPage = () => {
         <>
           <p>
             <FormattedMessage id="pages.home.scale" />
-            <br />
-            <br />
+          </p>
+          <p>
             <strong>
               <FormattedMessage id="pages.home.scaleWarning1" />
             </strong>
@@ -48,24 +57,26 @@ const Home: NextPage = () => {
             <FormattedMessage id="pages.home.scaleWarning2" />
           </p>
 
-          <Button className="mtop" onClick={() => setStep(Steps.TRACK)}>
+          <Button onClick={() => setStep(Steps.TRACK)}>
             <FormattedMessage id="pages.home.scaleOk" />
           </Button>
         </>
       )}
       {step === Steps.TRACK && (
         <>
-          <form>
+          <Container as="form">
             <div>
-              <label htmlFor="">
+              <label htmlFor="weight">
                 <FormattedMessage id="pages.home.track" />
               </label>
             </div>
 
-            <Button type="submit" className="mtop">
+            <StyledInput type="number" placeholder="13.2" id="weight" required />
+
+            <Button type="submit">
               <FormattedMessage id="pages.home.trackOk" />
             </Button>
-          </form>
+          </Container>
         </>
       )}
     </Container>

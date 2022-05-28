@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import BaseLink from 'next/link';
-import { colorPalette, getSpacing } from 'stylesheet';
-import { CustomLinkProps } from 'components/Link';
+import { borderRadius, colorPalette, getSpacing } from 'stylesheet';
+import { CustomLinkProps } from 'components/Link/Link';
 
 export const Button = styled.button`
   display: inline-block;
@@ -11,10 +11,15 @@ export const Button = styled.button`
   background: ${colorPalette.darkPurple}; /* fallback for old browsers */
   background: linear-gradient(to right, ${colorPalette.darkPurple}, ${colorPalette.darkFushia});
   border: none;
-  border-radius: 10px;
+  border-radius: ${borderRadius};
   color: ${colorPalette.white};
   text-decoration: none;
   text-align: center;
+
+  &:focus {
+    outline: ${colorPalette.darkPurple} solid 2px;
+    outline-offset: 2px;
+  }
 `;
 
 export const Link: React.FC<CustomLinkProps> = ({ href, children, ...rest }) => (
