@@ -6,9 +6,13 @@ import { FormattedMessage } from 'react-intl';
 import { getStorage, getUid, setValue } from 'services/storage';
 import { GarbageTrackingEntry } from 'services/type';
 
-export const GarbageTrackingEntryForm: React.FC = () => {
+interface Props {
+  onSubmit: (newEntries: GarbageTrackingEntry[]) => void;
+}
+
+export const GarbageTrackingEntryForm: React.FC<Props> = ({ onSubmit }) => {
   const [weight, setWeight] = useState('');
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const storage = getStorage();
@@ -23,10 +27,11 @@ export const GarbageTrackingEntryForm: React.FC = () => {
     ];
     setValue('entries', newEntries);
     setWeight('');
+    onSubmit(newEntries);
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       <MainPageContainer>
         <div>
           <label htmlFor="weight">

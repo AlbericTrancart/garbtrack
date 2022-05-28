@@ -1,4 +1,5 @@
 import { Button } from 'components/Button/Button';
+import { GarbageChart } from 'components/pages/index/GarbageChart';
 import { GarbageTrackingEntryForm } from 'components/pages/index/GarbageTrackingEntryForm';
 import { NextPage } from 'next';
 import { useState } from 'react';
@@ -25,8 +26,9 @@ export const MainPageContainer = styled.section`
 
 const Home: NextPage = () => {
   const storage = getStorage();
-  const initialStep =
-    storage.entries !== undefined && storage.entries?.length > 0 ? Steps.TRACK : Steps.START;
+  const initialEntries = storage.entries ?? [];
+  const initialStep = initialEntries.length > 0 ? Steps.TRACK : Steps.START;
+  const [trackingEntries, setTrackingEntries] = useState(initialEntries);
   const [step, setStep] = useState(initialStep);
 
   return (
@@ -60,7 +62,12 @@ const Home: NextPage = () => {
           </Button>
         </>
       )}
-      {step === Steps.TRACK && <GarbageTrackingEntryForm />}
+      {step === Steps.TRACK && (
+        <>
+          <GarbageTrackingEntryForm onSubmit={(newEntries) => setTrackingEntries(newEntries)} />
+          {trackingEntries.length > 0 && <GarbageChart trackingEntries={trackingEntries} />}
+        </>
+      )}
     </MainPageContainer>
   );
 };

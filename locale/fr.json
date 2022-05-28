@@ -27,7 +27,11 @@
       "start": "Tu cherches à réduire ta quantité de déchets ?\n\nOu juste envie de mesurer ce qui sort de ta poubelle par curiosité ?",
       "startOk": "Commencer à tracker\nmes déchets !",
       "track": "Il est temps de sortir la poubelle ! Combien de kilos pèse-t-elle ?",
-      "trackOk": "Ajouter !"
+      "trackOk": "Ajouter !",
+      "chart": {
+        "title": "Suis ta production de déchets",
+        "weigthLabel": "Poids total"
+      }
     }
   }
 }

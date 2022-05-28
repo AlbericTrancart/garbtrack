@@ -1,6 +1,9 @@
 import keys from 'lodash/keys';
 import en from 'locale/en.json';
 import fr from 'locale/fr.json';
+import format from 'date-fns/format';
+import dateFnsEn from 'date-fns/locale/en-US';
+import dateFnsFr from 'date-fns/locale/fr';
 
 type Message = string | NestedDictionary;
 
@@ -33,3 +36,14 @@ export const languages = {
 
 export const isValidLocale = (locale: unknown): locale is keyof typeof languages =>
   typeof locale === 'string' && locale in languages;
+
+const dateFnsLocales = {
+  en: dateFnsEn,
+  fr: dateFnsFr,
+};
+
+export const formatDate = (date: Date, formatString: string, locale: string) => {
+  const localeToUse = isValidLocale(locale) ? locale : 'en';
+
+  return format(date, formatString, { locale: dateFnsLocales[localeToUse] });
+};
