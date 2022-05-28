@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Divider } from 'components/Divider';
-import { Link, StyledLink } from 'components/Link';
-import { PAGE_WIDTH } from 'components/Layout';
+import { Divider } from 'components/Divider/Divider';
+import { Link, StyledLink } from 'components/Link/Link';
+import { PAGE_WIDTH } from 'components/Layout/Layout';
 import { getSpacing, typography } from 'stylesheet';
 import { FormattedMessage } from 'react-intl';
 import { useCookies } from 'react-cookie';

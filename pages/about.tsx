@@ -1,5 +1,5 @@
-import { Subtitle } from 'components/Layout';
-import { Link } from 'components/Link';
+import { Subtitle } from 'components/Layout/Layout';
+import { Link } from 'components/Link/Link';
 import { NextPage } from 'next';
 import { FormattedMessage } from 'react-intl';
 

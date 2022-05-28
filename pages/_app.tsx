@@ -1,11 +1,11 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { CSSResets } from 'components/CSSResets';
+import { CSSResets } from 'components/CSSResets/CSSResets';
 import Router, { useRouter } from 'next/router';
 import { getPageConfig } from 'services/pages';
-import { Header } from 'components/Header';
-import { PageContainer } from 'components/Layout';
-import { Footer } from 'components/Footer';
+import { Header } from 'components/Header/Header';
+import { PageContainer } from 'components/Layout/Layout';
+import { Footer } from 'components/Footer/Footer';
 import '@reach/checkbox/styles.css';
 import { IntlProvider } from 'react-intl';
 import { isValidLocale, languages } from 'services/intl';
