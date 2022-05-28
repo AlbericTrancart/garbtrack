@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { colorPalette, getSpacing, typography } from 'stylesheet';
 import { PAGES } from 'services/pages';
+import { FormattedMessage } from 'react-intl';
 
 const Container = styled.header`
   background: ${colorPalette.darkPurple}; /* fallback for old browsers */
@@ -56,7 +57,9 @@ export const Header: React.FC<Props> = ({ isHomepage }) => (
             <Logo alt="Garbtrack logo" src="logo-white.svg" />
           </Title>
 
-          <Description>The simple waste tracker</Description>
+          <Description>
+            <FormattedMessage id="header.slogan" />
+          </Description>
         </HomeLink>
       </Link>
     </Text>

@@ -7,10 +7,50 @@ import { Header } from 'components/Header';
 import { PageContainer } from 'components/Layout';
 import { Footer } from 'components/Footer';
 import '@reach/checkbox/styles.css';
+import en from 'locale/en.json';
+import fr from 'locale/fr.json';
+import keys from 'lodash/keys';
+import { IntlProvider } from 'react-intl';
+
+type Message = string | NestedDictionary;
+interface NestedDictionary {
+  [x: string]: Message;
+}
+interface FlattenedDictionary {
+  [x: string]: string;
+}
+
+export const flattenMessages = (
+  nestedMessages: NestedDictionary,
+  prefix = '',
+): FlattenedDictionary =>
+  keys(nestedMessages).reduce((messages: FlattenedDictionary, key) => {
+    const value = nestedMessages[key];
+    const prefixedKey = prefix ? `${prefix}.${key}` : key;
+
+    if (typeof value === 'string') {
+      messages[prefixedKey] = value;
+    } else {
+      Object.assign(messages, flattenMessages(value, prefixedKey));
+    }
+
+    return messages;
+  }, {});
+
+const languages = {
+  en: flattenMessages(en),
+  fr: flattenMessages(fr),
+};
+
+const isValidLocale = (locale: unknown): locale is keyof typeof languages =>
+  typeof locale === 'string' && locale in languages;
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   // from https://github.com/vercel/next.js/issues/3249
   const router = useRouter();
+  const { locale, defaultLocale } = router;
+  const messages = isValidLocale(locale) ? languages[locale] : languages.en;
+
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
   });
@@ -19,7 +59,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const title = config ? `Garbtrack | ${config.title}` : 'Garbtrack';
 
   return (
-    <>
+    <IntlProvider messages={messages} locale={locale ?? 'en'} defaultLocale={defaultLocale}>
       <Head>
         <title>{title}</title>
 
@@ -32,10 +72,21 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
         <meta property="og:url" content={`https://garbtrack.earth${router.pathname}`} />
+        {locale === 'fr' ? (
+          <>
+            <meta property="og:locale" content="fr_FR" />
+            <meta property="og:description" content={fr.header.slogan} />
+            <meta name="description" content={fr.header.slogan} />
+          </>
+        ) : (
+          <>
+            <meta property="og:locale" content="en_US" />
+            <meta property="og:description" content={en.header.slogan} />
+            <meta name="description" content={en.header.slogan} />
+          </>
+        )}
         <meta property="og:type" content="website" />
-        <meta property="og:locale" content="en_US" />
         <meta property="og:title" content={title} />
-        <meta property="og:description" content="The simple waste tracker" />
         <meta property="og:site_name" content="Garbtrack" />
         <meta property="og:image" content="https://garbtrack.earth/android-chrome-512x512.png" />
         <meta property="og:image:type" content="image/png" />
@@ -54,7 +105,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
       </PageContainer>
 
       <Footer />
-    </>
+    </IntlProvider>
   );
 };
 

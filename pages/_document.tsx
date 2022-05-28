@@ -28,7 +28,7 @@ export default class DefaultPage extends Document<Props> {
 
   render() {
     return (
-      <Html lang="en">
+      <Html>
         <Head>
           <link
             href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans"

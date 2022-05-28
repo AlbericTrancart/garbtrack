@@ -3,4 +3,9 @@ module.exports = {
   compiler: {
     styledComponents: true,
   },
+  i18n: {
+    locales: ['en', 'fr'],
+    defaultLocale: 'en',
+  },
+  trailingSlash: true,
 };

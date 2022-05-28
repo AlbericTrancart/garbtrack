@@ -1,12 +1,12 @@
-import { Subtitle } from 'components/Layout';
 import { NextPage } from 'next';
+import { FormattedMessage } from 'react-intl';
 
 const Home: NextPage = () => (
   <>
     <section>
-      <Subtitle id="introduction">Introduction</Subtitle>
-
-      <p>Something is coming here!</p>
+      <p>
+        <FormattedMessage id="pages.home.introduction" />
+      </p>
     </section>
   </>
 );

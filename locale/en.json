@@ -1,0 +1,10 @@
+{
+  "header": {
+    "slogan": "The simple waste tracker"
+  },
+  "pages": {
+    "home": {
+      "introduction": "Something is coming here!"
+    }
+  }
+}
