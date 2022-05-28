@@ -18,7 +18,7 @@ const StyledLink = styled.a`
   &:hover,
   &:focus,
   &:active {
-    color: ${colorPalette.blue};
+    color: ${colorPalette.darkPurple};
   }
 `;
 

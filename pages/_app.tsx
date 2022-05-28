@@ -49,6 +49,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
       <Header isHomepage={config?.route === '/'} />
 
       <PageContainer>
+        {/* @ts-expect-error Too lazy to fix typing */}
         <Component {...pageProps} />
       </PageContainer>
 

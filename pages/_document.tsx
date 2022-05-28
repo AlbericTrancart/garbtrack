@@ -12,6 +12,7 @@ export default class DefaultPage extends Document<Props> {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
+          // @ts-expect-error Too lazy to fix typing
           enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
         });
       const initialProps = await Document.getInitialProps(ctx);

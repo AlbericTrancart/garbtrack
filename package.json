@@ -7,9 +7,6 @@
   "version": "0.0.1",
   "main": "index.js",
   "engineStrict": true,
-  "engines": {
-    "node": ">=16.0.0"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

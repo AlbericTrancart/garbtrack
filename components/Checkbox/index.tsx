@@ -28,7 +28,7 @@ const Check = styled.span<{ checked: boolean }>`
   height: calc(1rem - 4px);
   top: 2px;
   left: 2px;
-  background-color: ${({ checked }) => (checked ? colorPalette.blue : colorPalette.white)};
+  background-color: ${({ checked }) => (checked ? colorPalette.darkPurple : colorPalette.white)};
   transition: ease-in-out background-color 0.3s;
 `;
 
