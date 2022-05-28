@@ -15,6 +15,8 @@ export const colorPalette = {
   white: '#ffffff',
   darkPurple: '#1d2671',
   darkFushia: '#c33764',
+  darkGreen: '#134E5E',
+  lightGreen: '#71B280',
 };
 
 export const fonts = {
