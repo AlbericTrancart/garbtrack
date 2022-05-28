@@ -118,12 +118,8 @@ module.exports = {
     '@typescript-eslint/no-unsafe-member-access': 'error',
     '@typescript-eslint/restrict-template-expressions': 'error',
     '@typescript-eslint/no-floating-promises': 'error',
-    'no-shadow': [
-      'error',
-      {
-        hoist: 'all',
-      },
-    ],
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'error',
     'prefer-const': 'warn',
     'import/order': [
       'error',

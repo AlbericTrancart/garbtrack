@@ -4,7 +4,8 @@
   },
   "pages": {
     "home": {
-      "introduction": "Ce sera prêt bientôt !"
+      "introduction": "Tu cherches à réduire ta quantité de déchets ?\n\nOu juste envie de mesurer ce qui sort de ta poubelle par curiosité ?",
+      "start": "Commencer à tracker\nmes déchets !"
     }
   }
 }

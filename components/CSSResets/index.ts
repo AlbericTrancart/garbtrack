@@ -33,4 +33,14 @@ export const CSSResets = createGlobalStyle`
     dl {
         margin: 0;
     }
+
+    a:focus, button:focus {
+        outline: ${colorPalette.darkPurple} solid 2px;
+        outline-offset: 2px;
+    }
+
+    * {
+        box-sizing: border-box;
+        white-space: pre-line;
+    }
 `;
