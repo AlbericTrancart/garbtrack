@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { getSpacing, mobileBreakpoint, typography } from 'stylesheet';
 
 export const PAGE_WIDTH = getSpacing(100);
-export const MAIN_VERTICAL_MARGIN = getSpacing(4);
+export const MAIN_VERTICAL_MARGIN = getSpacing(2);
 export const MAIN_VERTICAL_PADDING = getSpacing(2);
 
 export const PageContainer = styled.main`

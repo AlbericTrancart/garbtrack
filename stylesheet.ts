@@ -27,7 +27,6 @@ export const mobileBreakpoint = '50em';
 export const typography: { [key: string]: FlattenSimpleInterpolation } = {
   main: css`
     font-family: ${fonts.main};
-    font-size: 125%;
     line-height: 1.5;
   `,
   title: css`

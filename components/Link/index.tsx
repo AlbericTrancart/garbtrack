@@ -9,7 +9,7 @@ export interface CustomLinkProps extends LinkProps {
   children?: React.ReactNode;
 }
 
-const StyledLink = styled.a`
+export const StyledLink = styled.a`
   cursor: pointer;
   transition: color ease 0.3s;
   text-decoration: underline;

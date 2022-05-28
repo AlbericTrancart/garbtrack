@@ -11,7 +11,7 @@ const Container = styled.header`
 
   color: ${colorPalette.white};
   padding: ${getSpacing(3)} ${getSpacing(2)};
-  margin-bottom: ${getSpacing(4)};
+  margin-bottom: ${getSpacing(2)};
 `;
 
 const HomeLink = styled.a`
@@ -54,7 +54,7 @@ export const Header: React.FC<Props> = ({ isHomepage }) => (
       <Link href={PAGES.Home.url()} passHref>
         <HomeLink aria-label="Homepage, Garbtrack">
           <Title>
-            <Logo alt="Garbtrack logo" src="logo-white.svg" />
+            <Logo alt="Garbtrack logo" src="/logo-white.svg" />
           </Title>
 
           <Description>

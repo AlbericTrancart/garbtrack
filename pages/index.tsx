@@ -25,7 +25,7 @@ const Home: NextPage = () => {
               <FormattedMessage id="pages.home.introduction" />
             </p>
 
-            <Button onClick={() => setStep(Steps.BALANCE)}>
+            <Button className="mtop" onClick={() => setStep(Steps.BALANCE)}>
               <FormattedMessage id="pages.home.start" />
             </Button>
           </>
