@@ -6,6 +6,9 @@ import { PAGES } from 'services/pages';
 import { FormattedMessage } from 'react-intl';
 
 const Container = styled.header`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background: ${colorPalette.darkPurple}; /* fallback for old browsers */
   background: linear-gradient(to right, ${colorPalette.darkPurple}, ${colorPalette.darkFushia});
 
@@ -21,27 +24,24 @@ const HomeLink = styled.a`
   font: inherit;
   color: inherit;
   text-decoration: none;
-`;
 
-const Text = styled.p`
-  margin: 0;
+  &:focus {
+    outline-color: ${colorPalette.white};
+  }
 `;
 
 const Title = styled.span`
   ${typography.title}
-  margin: 0;
 `;
 
 const Logo = styled.img`
-  display: block;
-  margin: 0 auto;
   height: 4rem;
   max-width: 100%;
 `;
 
-const Description = styled.span`
+const Description = styled.p`
   ${typography.subtitle}
-  margin: 0;
+  text-align: center;
 `;
 
 interface Props {
@@ -50,18 +50,16 @@ interface Props {
 
 export const Header: React.FC<Props> = ({ isHomepage }) => (
   <Container>
-    <Text as={isHomepage ? 'h1' : 'p'}>
+    <Title>
       <Link href={PAGES.Home.url()} passHref>
         <HomeLink aria-label="Homepage, Garbtrack">
-          <Title>
-            <Logo alt="Garbtrack logo" src="/logo-white.svg" />
-          </Title>
-
-          <Description>
-            <FormattedMessage id="header.slogan" />
-          </Description>
+          <Logo alt="Garbtrack logo" src="/logo-white.svg" />
         </HomeLink>
       </Link>
-    </Text>
+    </Title>
+
+    <Description as={isHomepage ? 'h1' : 'p'}>
+      <FormattedMessage id="header.slogan" />
+    </Description>
   </Container>
 );
