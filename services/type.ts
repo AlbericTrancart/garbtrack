@@ -1,6 +1,6 @@
 export interface GarbageTrackingEntry {
   id: string;
-  weight: number;
+  weight: string;
   date: string;
   recyclable: boolean;
 }

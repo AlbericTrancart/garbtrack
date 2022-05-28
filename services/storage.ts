@@ -1,7 +1,18 @@
 import set from 'lodash/set';
+import ShortUniqueId from 'short-unique-id';
 import { GarbtrackStorage } from './type';
 
 const LOCAL_STORAGE_KEY = 'garbtrackData';
+
+let uidGenerator: ShortUniqueId | null = null;
+
+export const getUid = () => {
+  if (uidGenerator === null) {
+    uidGenerator = new ShortUniqueId({ length: 8 });
+  }
+
+  return uidGenerator() as string;
+};
 
 export const getStorage = (): GarbtrackStorage => {
   try {

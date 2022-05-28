@@ -1,5 +1,5 @@
 import { Button } from 'components/Button/Button';
-import { Input } from 'components/Input/Input';
+import { GarbageTrackingEntryForm } from 'components/pages/index/GarbageTrackingEntryForm';
 import { NextPage } from 'next';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -13,7 +13,7 @@ enum Steps {
   TRACK,
 }
 
-const Container = styled.section`
+export const MainPageContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,8 +23,6 @@ const Container = styled.section`
   font-size: 1.25rem;
 `;
 
-const StyledInput = styled(Input)``;
-
 const Home: NextPage = () => {
   const storage = getStorage();
   const initialStep =
@@ -32,7 +30,7 @@ const Home: NextPage = () => {
   const [step, setStep] = useState(initialStep);
 
   return (
-    <Container>
+    <MainPageContainer>
       {step === Steps.START && (
         <>
           <p>
@@ -62,24 +60,8 @@ const Home: NextPage = () => {
           </Button>
         </>
       )}
-      {step === Steps.TRACK && (
-        <>
-          <Container as="form">
-            <div>
-              <label htmlFor="weight">
-                <FormattedMessage id="pages.home.track" />
-              </label>
-            </div>
-
-            <StyledInput type="number" placeholder="13.2" id="weight" required />
-
-            <Button type="submit">
-              <FormattedMessage id="pages.home.trackOk" />
-            </Button>
-          </Container>
-        </>
-      )}
-    </Container>
+      {step === Steps.TRACK && <GarbageTrackingEntryForm />}
+    </MainPageContainer>
   );
 };
 
