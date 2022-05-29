@@ -3,7 +3,7 @@ import { GarbageChart } from 'components/pages/index/GarbageChart';
 import { GarbageTrackingEntryForm } from 'components/pages/index/GarbageTrackingEntryForm';
 import { NextPage } from 'next';
 import { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { getStorage } from 'services/storage';
 import styled from 'styled-components';
 import { getSpacing } from 'stylesheet';
@@ -25,6 +25,7 @@ export const MainPageContainer = styled.section`
 `;
 
 const Home: NextPage = () => {
+  const intl = useIntl();
   const storage = getStorage();
   const initialEntries = storage.entries ?? [];
   const initialStep = initialEntries.length > 0 ? Steps.TRACK : Steps.START;
@@ -49,6 +50,11 @@ const Home: NextPage = () => {
           <p>
             <FormattedMessage id="pages.home.scale" />
           </p>
+          <img
+            src="/trashScaleExample.jpg"
+            alt={intl.formatMessage({ id: 'pages.home.scaleImageAlt' })}
+            style={{ maxWidth: '300px' }}
+          />
           <p>
             <strong>
               <FormattedMessage id="pages.home.scaleWarning1" />

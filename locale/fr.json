@@ -35,7 +35,8 @@
         "submit": "Ajouter !"
       },
       "scale": "Première étape : va chercher une balance et positionne-la à coté de ta poubelle.",
-      "scaleWarning1": "Important : ne va pas plus loin tant que la balance n'est pas à coté de la poubelle !",
+      "scaleImageAlt": "Exemple de ma poubelle sur la gauche, avec ma balance sur la droite",
+      "scaleWarning1": "Très important : ne va pas plus loin tant que la balance n'est pas à coté de la poubelle !",
       "scaleWarning2": "C'est en la mettant à coté que tu va prendre l'habitude de peser tes déchets.",
       "scaleOk": "C'est bon, promis tout est prêt !",
       "start": "Tu cherches à réduire ta quantité de déchets ?\n\nOu juste envie de mesurer ce qui sort de ta poubelle par curiosité ?",
