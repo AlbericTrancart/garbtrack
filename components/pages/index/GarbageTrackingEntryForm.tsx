@@ -1,4 +1,5 @@
 import { Button } from 'components/Button/Button';
+import { Checkbox, Label } from 'components/Checkbox/Checkbox';
 import { Input } from 'components/Input/Input';
 import { MainPageContainer } from 'pages';
 import { FormEvent, useState } from 'react';
@@ -12,6 +13,8 @@ interface Props {
 
 export const GarbageTrackingEntryForm: React.FC<Props> = ({ onSubmit }) => {
   const [weight, setWeight] = useState('');
+  const [recyclable, setRecyclable] = useState(false);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -22,7 +25,7 @@ export const GarbageTrackingEntryForm: React.FC<Props> = ({ onSubmit }) => {
         id: getUid(),
         weight,
         date: new Date().toISOString(),
-        recyclable: false,
+        recyclable,
       },
     ];
     setValue('entries', newEntries);
@@ -35,21 +38,28 @@ export const GarbageTrackingEntryForm: React.FC<Props> = ({ onSubmit }) => {
       <MainPageContainer>
         <div>
           <label htmlFor="weight">
-            <FormattedMessage id="pages.home.track" />
+            <FormattedMessage id="pages.home.form.weightLabel" />
           </label>
         </div>
 
         <Input
+          id="weight"
           type="number"
           placeholder="13.2"
-          id="weight"
           required
           value={weight}
           onChange={(event) => setWeight(event.target.value)}
+          // Disable changing input value on scroll over the input
+          onWheel={(event) => event.currentTarget.blur()}
         />
 
+        <Label>
+          <Checkbox onChange={(value) => setRecyclable(value)} checked={recyclable} />
+          <FormattedMessage id="pages.home.form.recyclableLabel" />
+        </Label>
+
         <Button type="submit">
-          <FormattedMessage id="pages.home.trackOk" />
+          <FormattedMessage id="pages.home.form.submit" />
         </Button>
       </MainPageContainer>
     </form>

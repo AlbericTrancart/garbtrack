@@ -107,11 +107,15 @@ export const GarbageChart: React.FC<Props> = ({ trackingEntries }) => {
   const intl = useIntl();
   const groupedEntriesByMonth = groupEntriesByMonth(trackingEntries);
   const notRecyclableData = groupedEntriesByMonth.map((entryByMonth) =>
-    entryByMonth.entries.reduce((sum, current) => sum + parseFloat(current.weight), 0),
+    entryByMonth.entries
+      .filter((entry) => !entry.recyclable)
+      .reduce((sum, current) => sum + parseFloat(current.weight), 0),
   );
   const maxNotRecyclableValue = Math.max(...notRecyclableData);
   const recyclableData = groupedEntriesByMonth.map((entryByMonth) =>
-    entryByMonth.entries.reduce((sum, current) => sum + parseFloat(current.weight), 0),
+    entryByMonth.entries
+      .filter((entry) => entry.recyclable)
+      .reduce((sum, current) => sum + parseFloat(current.weight), 0),
   );
   const maxRecyclableValue = Math.max(...recyclableData);
   const months = groupedEntriesByMonth.map((entryByMonth) => entryByMonth.month);
