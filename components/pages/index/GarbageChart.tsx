@@ -24,6 +24,7 @@ const ChartContainer = styled.div`
   position: relative;
   width: 80vw;
   height: 45vw;
+  min-height: 300px;
 
   @media (min-width: ${mobileBreakpoint}) {
     width: ${getSpacing(90)};
@@ -67,14 +68,16 @@ const getBarGradient = (
   color1: string,
   color2: string,
 ) => {
+  // When the legend is built the values are NaN
+  // eslint-disable-next-line
+  if (!context.chart.chartArea) {
+    return color1;
+  }
+
   const yAxis = context.chart.scales['y'];
   const yStart = yAxis.getPixelForValue(start);
   const yEnd = yAxis.getPixelForValue(end);
 
-  // When the legend is built these values may be NaN
-  if (!(yStart >= 0 && yEnd >= 0)) {
-    return color1;
-  }
   const notRecyclableGradient = context.chart.ctx.createLinearGradient(0, yStart, 0, yEnd);
   notRecyclableGradient.addColorStop(0, color1);
   notRecyclableGradient.addColorStop(1, color2);
@@ -126,54 +129,69 @@ export const GarbageChart: React.FC<Props> = ({ trackingEntries }) => {
     }
   }
 
+  const notRecyclableDataset = {
+    type: 'bar',
+    label: intl.formatMessage({ id: 'pages.home.chart.weigthLabel' }),
+    data: notRecyclableData,
+    maxBarThickness: 50,
+    backgroundColor: (context: ScriptableContext<'bar'>) =>
+      getBarGradient(
+        context,
+        0,
+        maxNotRecyclableValue,
+        colorPalette.darkFushia,
+        colorPalette.darkPurple,
+      ),
+    datalabels: {
+      display: (context: ScriptableContext<'bar'>) => notRecyclableData[context.dataIndex] > 0,
+    },
+  };
+
+  const recyclableDataset = {
+    type: 'bar',
+    label: intl.formatMessage({ id: 'pages.home.chart.weigthRecyclableLabel' }),
+    data: recyclableData,
+    maxBarThickness: 50,
+    backgroundColor: (context: ScriptableContext<'bar'>) =>
+      getBarGradient(
+        context,
+        maxNotRecyclableValue,
+        maxNotRecyclableValue + maxRecyclableValue,
+        colorPalette.lightGreen,
+        colorPalette.darkGreen,
+      ),
+    datalabels: {
+      display: (context: ScriptableContext<'bar'>) => recyclableData[context.dataIndex] > 0,
+    },
+  };
+
+  const datasets = [];
+  if (maxNotRecyclableValue > 0) {
+    datasets.push(notRecyclableDataset);
+  }
+  if (maxRecyclableValue > 0) {
+    datasets.push(recyclableDataset);
+  }
+  datasets.push({
+    type: 'line',
+    label: intl.formatMessage(
+      { id: 'pages.home.chart.meanLabel' },
+      { value: FRENCH_MEAN_WASTE_PER_MONTH },
+    ),
+    data: months.map(() => FRENCH_MEAN_WASTE_PER_MONTH),
+    borderColor: (context: ScriptableContext<'line'>) =>
+      getLineGradient(context, colorPalette.darkOrange, colorPalette.orange),
+    tension: 0.1,
+    pointStyle: 'circle',
+    pointBackgroundColor: 'transparent',
+    pointBorderWidth: 2,
+    datalabels: {
+      display: false,
+    },
+  });
+
   const data = {
-    datasets: [
-      {
-        type: 'bar',
-        label: intl.formatMessage({ id: 'pages.home.chart.weigthLabel' }),
-        data: notRecyclableData,
-        maxBarThickness: 50,
-        backgroundColor: (context: ScriptableContext<'bar'>) =>
-          getBarGradient(
-            context,
-            0,
-            maxNotRecyclableValue,
-            colorPalette.darkFushia,
-            colorPalette.darkPurple,
-          ),
-      },
-      {
-        type: 'bar',
-        label: intl.formatMessage({ id: 'pages.home.chart.weigthRecyclableLabel' }),
-        data: recyclableData,
-        maxBarThickness: 50,
-        backgroundColor: (context: ScriptableContext<'bar'>) =>
-          getBarGradient(
-            context,
-            maxNotRecyclableValue,
-            maxNotRecyclableValue + maxRecyclableValue,
-            colorPalette.lightGreen,
-            colorPalette.darkGreen,
-          ),
-      },
-      {
-        type: 'line',
-        label: intl.formatMessage(
-          { id: 'pages.home.chart.meanLabel' },
-          { value: FRENCH_MEAN_WASTE_PER_MONTH },
-        ),
-        data: months.map(() => FRENCH_MEAN_WASTE_PER_MONTH),
-        borderColor: (context: ScriptableContext<'line'>) =>
-          getLineGradient(context, colorPalette.darkOrange, colorPalette.orange),
-        tension: 0.1,
-        pointStyle: 'circle',
-        pointBackgroundColor: 'transparent',
-        pointBorderWidth: 2,
-        datalabels: {
-          display: false,
-        },
-      },
-    ],
+    datasets,
     labels: months.map((month) => {
       const localDate = new Date();
       localDate.setDate(1);
