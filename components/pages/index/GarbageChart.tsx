@@ -61,17 +61,22 @@ const getGradient = (
   color2: string,
 ) => {
   const yAxis = context.chart.scales['y'];
-  const notRecyclableGradient = context.chart.ctx.createLinearGradient(
-    0,
-    yAxis.getPixelForValue(start),
-    0,
-    yAxis.getPixelForValue(end),
-  );
+  const yStart = yAxis.getPixelForValue(start);
+  const yEnd = yAxis.getPixelForValue(end);
+
+  // When the legend is built these values may be NaN
+  if (!(yStart >= 0 && yEnd >= 0)) {
+    return color1;
+  }
+  const notRecyclableGradient = context.chart.ctx.createLinearGradient(0, yStart, 0, yEnd);
   notRecyclableGradient.addColorStop(0, color1);
   notRecyclableGradient.addColorStop(1, color2);
 
   return notRecyclableGradient;
 };
+
+const capitalizeFirstLetter = (value: string): string =>
+  value.charAt(0).toUpperCase() + value.slice(1);
 
 export const GarbageChart: React.FC<Props> = ({ trackingEntries }) => {
   const intl = useIntl();
@@ -120,7 +125,7 @@ export const GarbageChart: React.FC<Props> = ({ trackingEntries }) => {
       const localDate = new Date();
       localDate.setMonth(entryByMonth.month);
 
-      return formatDate(localDate, 'MMMM', intl.locale);
+      return capitalizeFirstLetter(formatDate(localDate, 'MMMM', intl.locale));
     }),
   };
 
@@ -136,6 +141,14 @@ export const GarbageChart: React.FC<Props> = ({ trackingEntries }) => {
         stacked: true,
       },
     },
+    plugins: {
+      datalabels: {
+        color: colorPalette.white,
+        anchor: 'end',
+        align: 'bottom',
+        font: { weight: 'bold' },
+      },
+    },
   };
 
   return (
@@ -144,6 +157,7 @@ export const GarbageChart: React.FC<Props> = ({ trackingEntries }) => {
         <FormattedMessage id="pages.home.chart.title" />
       </Subtitle>
       <ChartContainer className="mtop">
+        {/* @ts-expect-error cannot turn off warning about plugin wrong type */}
         <Bar data={data} options={options} />
       </ChartContainer>
     </section>

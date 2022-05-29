@@ -11,9 +11,9 @@ import { IntlProvider } from 'react-intl';
 import { isValidLocale, languages } from 'services/intl';
 import en from 'locale/en.json';
 import fr from 'locale/fr.json';
-import { BarController, BarElement, CategoryScale, Chart as ChartJS, LinearScale } from 'chart.js';
+import { initChartConfig } from 'services/charts';
 
-ChartJS.register(LinearScale, CategoryScale, BarController, BarElement);
+initChartConfig();
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   // from https://github.com/vercel/next.js/issues/3249

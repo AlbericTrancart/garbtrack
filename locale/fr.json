@@ -30,8 +30,8 @@
       "trackOk": "Ajouter !",
       "chart": {
         "title": "Suis ta production de déchets",
-        "weigthLabel": "Poids total",
-        "weigthRecyclableLabel": "Poids recyclable total"
+        "weigthLabel": "Non recyclable",
+        "weigthRecyclableLabel": "Recyclable"
       }
     }
   }
