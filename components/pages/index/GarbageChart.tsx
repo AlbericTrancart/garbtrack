@@ -169,6 +169,9 @@ export const GarbageChart: React.FC<Props> = ({ trackingEntries }) => {
         pointStyle: 'circle',
         pointBackgroundColor: 'transparent',
         pointBorderWidth: 2,
+        datalabels: {
+          display: false,
+        },
       },
     ],
     labels: months.map((month) => {
@@ -195,38 +198,50 @@ export const GarbageChart: React.FC<Props> = ({ trackingEntries }) => {
     plugins: {
       datalabels: {
         color: colorPalette.white,
-        anchor: 'end',
-        align: 'bottom',
+        anchor: 'center',
+        align: 'center',
         font: { weight: 'bold' },
       },
     },
   };
 
   return (
-    <section>
-      <Subtitle>
-        <FormattedMessage id="pages.home.chart.title" />
-      </Subtitle>
-      <ChartContainer className="mtop">
-        {/* @ts-expect-error cannot turn off warning about plugin wrong type */}
-        <Bar data={data} options={options} />
-      </ChartContainer>
-      <MeanExplanationContainer>
-        <FormattedMessage
-          id="pages.home.chart.meanExplanation"
-          values={{ value: FRENCH_MEAN_WASTE_PER_MONTH }}
-        />{' '}
-        (
-        <Link
-          as="a"
-          target="_blank"
-          rel="noreferrer noopener"
-          href={intl.formatMessage({ id: 'pages.home.chart.meanSourceLink' })}
-        >
-          <FormattedMessage id="pages.home.chart.meanSource" />
-        </Link>
-        )
-      </MeanExplanationContainer>
-    </section>
+    <>
+      <section>
+        <Subtitle>
+          <FormattedMessage id="pages.home.chart.title" />
+        </Subtitle>
+        <ChartContainer className="mtop">
+          {/* @ts-expect-error cannot turn off warning about plugin wrong type */}
+          <Bar data={data} options={options} />
+        </ChartContainer>
+        <MeanExplanationContainer>
+          <FormattedMessage
+            id="pages.home.chart.meanExplanation"
+            values={{ value: FRENCH_MEAN_WASTE_PER_MONTH }}
+          />{' '}
+          (
+          <Link
+            as="a"
+            target="_blank"
+            rel="noreferrer noopener"
+            href={intl.formatMessage({ id: 'pages.home.chart.meanSourceLink' })}
+          >
+            <FormattedMessage id="pages.home.chart.meanSource" />
+          </Link>
+          )
+        </MeanExplanationContainer>
+      </section>
+      <section>
+        <Subtitle>
+          <FormattedMessage id="pages.home.actTitle" />
+        </Subtitle>
+        <p>
+          <em>
+            <FormattedMessage id="pages.home.actDescription" />
+          </em>
+        </p>
+      </section>
+    </>
   );
 };

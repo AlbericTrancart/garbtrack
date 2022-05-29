@@ -71,6 +71,11 @@ const Home: NextPage = () => {
       {step === Steps.TRACK && (
         <>
           <GarbageTrackingEntryForm onSubmit={(newEntries) => setTrackingEntries(newEntries)} />
+          {trackingEntries.length === 1 && (
+            <p>
+              <FormattedMessage id="pages.home.submittedExplanation" />
+            </p>
+          )}
           {trackingEntries.length > 0 && <GarbageChart trackingEntries={trackingEntries} />}
         </>
       )}

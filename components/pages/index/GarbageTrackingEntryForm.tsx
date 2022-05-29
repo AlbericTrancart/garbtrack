@@ -30,6 +30,7 @@ export const GarbageTrackingEntryForm: React.FC<Props> = ({ onSubmit }) => {
     ];
     setValue('entries', newEntries);
     setWeight('');
+    setRecyclable(false);
     onSubmit(newEntries);
   };
 

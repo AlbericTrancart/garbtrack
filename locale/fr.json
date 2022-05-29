@@ -3,6 +3,7 @@
     "about": "À propos"
   },
   "header": {
+    "linkLabel": "Accueil, Garbtrack",
     "slogan": "Traquer les déchets simplement"
   },
   "pages": {
@@ -20,6 +21,8 @@
       "whyTitle": "Pourquoi Garbtrack ?"
     },
     "home": {
+      "actTitle": "Ok, maintenant qu'est-ce que je fais pour réduire ça ?",
+      "actDescription": "Coming soon...",
       "chart": {
         "meanExplanation": "*{value} kg/hab/mois",
         "meanSource": "Source",
@@ -40,7 +43,8 @@
       "scaleWarning2": "C'est en la mettant à coté que tu va prendre l'habitude de peser tes déchets.",
       "scaleOk": "C'est bon, promis tout est prêt !",
       "start": "Tu cherches à réduire ta quantité de déchets ?\n\nOu juste envie de mesurer ce qui sort de ta poubelle par curiosité ?",
-      "startOk": "Commencer à tracker\nmes déchets !"
+      "startOk": "Commencer à tracker\nmes déchets !",
+      "submittedExplanation": "Super ! Maintenant tu peux commencer à mesurer ce qui sort de ta poubelle.\nN'oublie pas de le faire aussi pour les déchets qui ne rentrent pas forcément dedans, comme le verre ou les cartons de pizza 😉"
     }
   }
 }

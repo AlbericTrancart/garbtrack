@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { colorPalette, getSpacing, typography } from 'stylesheet';
 import { PAGES } from 'services/pages';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 const Container = styled.header`
   display: flex;
@@ -48,18 +48,22 @@ interface Props {
   isHomepage: boolean;
 }
 
-export const Header: React.FC<Props> = ({ isHomepage }) => (
-  <Container>
-    <Title>
-      <Link href={PAGES.Home.url()} passHref>
-        <HomeLink aria-label="Homepage, Garbtrack">
-          <Logo alt="Garbtrack logo" src="/logo-white.svg" />
-        </HomeLink>
-      </Link>
-    </Title>
+export const Header: React.FC<Props> = ({ isHomepage }) => {
+  const intl = useIntl();
 
-    <Description as={isHomepage ? 'h1' : 'p'}>
-      <FormattedMessage id="header.slogan" />
-    </Description>
-  </Container>
-);
+  return (
+    <Container>
+      <Title>
+        <Link href={PAGES.Home.url()} passHref>
+          <HomeLink aria-label={intl.formatMessage({ id: 'header.linkLabel' })}>
+            <Logo alt="Garbtrack logo" src="/logo-white.svg" />
+          </HomeLink>
+        </Link>
+      </Title>
+
+      <Description as={isHomepage ? 'h1' : 'p'}>
+        <FormattedMessage id="header.slogan" />
+      </Description>
+    </Container>
+  );
+};

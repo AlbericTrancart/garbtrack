@@ -1,10 +1,50 @@
 {
+  "footer": {
+    "about": "About"
+  },
   "header": {
+    "linkLabel": "Homepage, Garbtrack",
     "slogan": "The simple waste tracker"
   },
   "pages": {
+    "about": {
+      "contactContent": "I am eager for feedback, new ideas or bug reports. Here's how you can contact me:",
+      "contactLinks": {
+        "email": "Via email garbtrack@gmail.com",
+        "twitter": "On Twitter",
+        "website": "My personnal website"
+      },
+      "contactTitle": "Some feedback?",
+      "dataPolicyContent": "There is no server gathering your data. By the way, you don't even need an account. Everything is saved on your computer/phone!",
+      "dataPolicyTitle": "Data policy",
+      "whyContent": "It stemmed from my desire to reduce my personal waste production. Maybe this experience will interest other people.",
+      "whyTitle": "Why Garbtrack?"
+    },
     "home": {
-      "introduction": "Something is coming here!"
+      "actTitle": "Ok, now, what can I do to reduce it?",
+      "actDescription": "Coming soon...",
+      "chart": {
+        "meanExplanation": "*{value} kg/person/month",
+        "meanSource": "Source",
+        "meanSourceLink": "https://expertises.ademe.fr/economie-circulaire/dechets/chiffres-cles-observation/chiffres-cles",
+        "meanLabel": "French mean*",
+        "title": "Track your waste production",
+        "weigthLabel": "Not recyclable",
+        "weigthRecyclableLabel": "Recyclable"
+      },
+      "form": {
+        "recyclableLabel": "It's recyclable",
+        "weightLabel": "Time to take out the trash! How many kilograms does it weigh?",
+        "submit": "Add !"
+      },
+      "scale": "First step: go find a scale and put it next to your trash bin.",
+      "scaleImageAlt": "Example with my trash bin on the left, and my scale on the right",
+      "scaleWarning1": "Very important: do not go further as long as the scale is not next to the bin!",
+      "scaleWarning2": "It's by putting it nearby that you will take the habit of tracking your waste.",
+      "scaleOk": "Everything is ready, I promise!",
+      "start": "You want to reduce your waste production?\n\nOr you are just curious to find out what comes out of your trash bin?",
+      "startOk": "Start tracking my waste!",
+      "submittedExplanation": "Great! Now you can start tracking your waste production.\nDon't forget waste that don't necessarily fit in it such as glass bottles or pizza boxes 😉"
     }
   }
 }
