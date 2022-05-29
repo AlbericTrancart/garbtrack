@@ -44,7 +44,12 @@ const About: NextPage = () => (
           </Link>
         </li>
         <li>
-          <Link as="a" target="_blank" rel="noreferrer noopener" href="mailto:garbtrack@gmail.com">
+          <Link
+            as="a"
+            target="_blank"
+            rel="noreferrer noopener"
+            href="mailto:garbtrackearth@gmail.com"
+          >
             <FormattedMessage id="pages.about.contactLinks.email" />
           </Link>
         </li>
