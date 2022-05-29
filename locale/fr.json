@@ -20,6 +20,15 @@
       "whyTitle": "Pourquoi Garbtrack ?"
     },
     "home": {
+      "chart": {
+        "meanExplanation": "*{value} kg/hab/mois",
+        "meanSource": "Source",
+        "meanSourceLink": "https://expertises.ademe.fr/economie-circulaire/dechets/chiffres-cles-observation/chiffres-cles",
+        "meanLabel": "Moyenne française*",
+        "title": "Suis tes rejets de déchets",
+        "weigthLabel": "Non recyclable",
+        "weigthRecyclableLabel": "Recyclable"
+      },
       "scale": "Première étape : va chercher une balance et positionne-la à coté de ta poubelle.",
       "scaleWarning1": "Important : ne va pas plus loin tant que la balance n'est pas à coté de la poubelle !",
       "scaleWarning2": "C'est en la mettant à coté que tu va prendre l'habitude de peser tes déchets.",
@@ -27,12 +36,7 @@
       "start": "Tu cherches à réduire ta quantité de déchets ?\n\nOu juste envie de mesurer ce qui sort de ta poubelle par curiosité ?",
       "startOk": "Commencer à tracker\nmes déchets !",
       "track": "Il est temps de sortir la poubelle ! Combien de kilos pèse-t-elle ?",
-      "trackOk": "Ajouter !",
-      "chart": {
-        "title": "Suis ta production de déchets",
-        "weigthLabel": "Non recyclable",
-        "weigthRecyclableLabel": "Recyclable"
-      }
+      "trackOk": "Ajouter !"
     }
   }
 }

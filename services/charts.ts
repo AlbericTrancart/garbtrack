@@ -5,6 +5,9 @@ import {
   Chart as ChartJS,
   Legend,
   LinearScale,
+  LineController,
+  LineElement,
+  PointElement,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { fonts } from 'stylesheet';
@@ -16,7 +19,17 @@ export const initChartConfig = () => {
     return;
   }
 
-  ChartJS.register(LinearScale, CategoryScale, BarController, BarElement, ChartDataLabels, Legend);
+  ChartJS.register(
+    Legend,
+    ChartDataLabels,
+    BarController,
+    BarElement,
+    CategoryScale,
+    LineController,
+    LineElement,
+    LinearScale,
+    PointElement,
+  );
   ChartJS.defaults.font.family = fonts.main;
   ChartJS.defaults.font.size = 16;
   ChartJS.defaults.plugins.legend.position = 'bottom';

@@ -3,10 +3,13 @@ import { GarbageTrackingEntry } from 'services/type';
 import { Bar } from 'react-chartjs-2';
 import { FormattedMessage, useIntl } from 'react-intl';
 import orderBy from 'lodash/orderBy';
-import { ChartData, ScriptableContext } from 'chart.js';
+import { ScriptableContext } from 'chart.js';
 import { formatDate } from 'services/intl';
-import { colorPalette, getSpacing, mobileBreakpoint } from 'stylesheet';
+import { colorPalette, getSpacing, mobileBreakpoint, typography } from 'stylesheet';
 import styled from 'styled-components';
+import { Link } from 'components/Link/Link';
+
+const FRENCH_MEAN_WASTE_PER_MONTH = 48;
 
 interface Props {
   trackingEntries: GarbageTrackingEntry[];
@@ -26,6 +29,10 @@ const ChartContainer = styled.div`
     width: ${getSpacing(90)};
     height: ${getSpacing(45)};
   }
+`;
+
+const MeanExplanationContainer = styled.p`
+  ${typography.small}
 `;
 
 const groupEntriesByMonth = (entries: GarbageTrackingEntry[]): EntriesForMonth[] => {
@@ -53,7 +60,7 @@ const groupEntriesByMonth = (entries: GarbageTrackingEntry[]): EntriesForMonth[]
   return entriesByMonth;
 };
 
-const getGradient = (
+const getBarGradient = (
   context: ScriptableContext<'bar'>,
   start: number,
   end: number,
@@ -75,6 +82,24 @@ const getGradient = (
   return notRecyclableGradient;
 };
 
+const getLineGradient = (context: ScriptableContext<'line'>, color1: string, color2: string) => {
+  const chart = context.chart;
+  const { ctx, chartArea } = chart;
+
+  // wrong typing from chartjs
+  // eslint-disable-next-line
+  if (!chartArea) {
+    // This case happens on initial chart load
+    return null;
+  }
+
+  const gradient = ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
+  gradient.addColorStop(0, color1);
+  gradient.addColorStop(1, color2);
+
+  return gradient;
+};
+
 const capitalizeFirstLetter = (value: string): string =>
   value.charAt(0).toUpperCase() + value.slice(1);
 
@@ -89,16 +114,23 @@ export const GarbageChart: React.FC<Props> = ({ trackingEntries }) => {
     entryByMonth.entries.reduce((sum, current) => sum + parseFloat(current.weight), 0),
   );
   const maxRecyclableValue = Math.max(...recyclableData);
+  const months = groupedEntriesByMonth.map((entryByMonth) => entryByMonth.month);
+  const MIN_MONTHS_DISPLAYED = 3;
+  if (months.length < MIN_MONTHS_DISPLAYED) {
+    for (let i = months.length; i < MIN_MONTHS_DISPLAYED; i++) {
+      months.push((months[i - 1] + 1) % 12);
+    }
+  }
 
-  const data: ChartData<'bar'> = {
+  const data = {
     datasets: [
       {
         type: 'bar',
         label: intl.formatMessage({ id: 'pages.home.chart.weigthLabel' }),
         data: notRecyclableData,
         maxBarThickness: 50,
-        backgroundColor: (context) =>
-          getGradient(
+        backgroundColor: (context: ScriptableContext<'bar'>) =>
+          getBarGradient(
             context,
             0,
             maxNotRecyclableValue,
@@ -111,8 +143,8 @@ export const GarbageChart: React.FC<Props> = ({ trackingEntries }) => {
         label: intl.formatMessage({ id: 'pages.home.chart.weigthRecyclableLabel' }),
         data: recyclableData,
         maxBarThickness: 50,
-        backgroundColor: (context) =>
-          getGradient(
+        backgroundColor: (context: ScriptableContext<'bar'>) =>
+          getBarGradient(
             context,
             maxNotRecyclableValue,
             maxNotRecyclableValue + maxRecyclableValue,
@@ -120,10 +152,25 @@ export const GarbageChart: React.FC<Props> = ({ trackingEntries }) => {
             colorPalette.darkGreen,
           ),
       },
+      {
+        type: 'line',
+        label: intl.formatMessage(
+          { id: 'pages.home.chart.meanLabel' },
+          { value: FRENCH_MEAN_WASTE_PER_MONTH },
+        ),
+        data: months.map(() => FRENCH_MEAN_WASTE_PER_MONTH),
+        borderColor: (context: ScriptableContext<'line'>) =>
+          getLineGradient(context, colorPalette.darkOrange, colorPalette.orange),
+        tension: 0.1,
+        pointStyle: 'circle',
+        pointBackgroundColor: 'transparent',
+        pointBorderWidth: 2,
+      },
     ],
-    labels: groupedEntriesByMonth.map((entryByMonth) => {
+    labels: months.map((month) => {
       const localDate = new Date();
-      localDate.setMonth(entryByMonth.month);
+      localDate.setDate(1);
+      localDate.setMonth(month);
 
       return capitalizeFirstLetter(formatDate(localDate, 'MMMM', intl.locale));
     }),
@@ -160,6 +207,22 @@ export const GarbageChart: React.FC<Props> = ({ trackingEntries }) => {
         {/* @ts-expect-error cannot turn off warning about plugin wrong type */}
         <Bar data={data} options={options} />
       </ChartContainer>
+      <MeanExplanationContainer>
+        <FormattedMessage
+          id="pages.home.chart.meanExplanation"
+          values={{ value: FRENCH_MEAN_WASTE_PER_MONTH }}
+        />{' '}
+        (
+        <Link
+          as="a"
+          target="_blank"
+          rel="noreferrer noopener"
+          href={intl.formatMessage({ id: 'pages.home.chart.meanSourceLink' })}
+        >
+          <FormattedMessage id="pages.home.chart.meanSource" />
+        </Link>
+        )
+      </MeanExplanationContainer>
     </section>
   );
 };
